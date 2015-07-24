@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/one"
+            android:orderInCategory="1"
+            android:title="Film and Animation" />
+        <item
+            android:id="@+id/two"
+            android:orderInCategory="2"
+            android:title="Autos and Vehicles" />
+        <item
+            android:id="@+id/three"
+            android:orderInCategory="3"
+            android:title="Music" />
+        <item
+            android:id="@+id/four"
+            android:orderInCategory="4"
+            android:title="Pets and Animals" />
+        <item
+            android:id="@+id/five"
+            android:orderInCategory="5"
+            android:title="Sports" />
+        <item
+            android:id="@+id/six"
+            android:orderInCategory="6"
+            android:title="Short Movies" />
+        <item
+            android:id="@+id/seven"
+            android:orderInCategory="7"
+            android:title="Travel and Events" />
+        <item
+            android:id="@+id/eight"
+            android:orderInCategory="8"
+            android:title="Gaming" />
+        <item
+            android:id="@+id/nine"
+            android:orderInCategory="9"
+            android:title="Videoblogging" />
+        <item
+            android:id="@+id/ten"
+            android:orderInCategory="10"
+            android:title="People and Blogs" />
+        <item
+            android:id="@+id/eleven"
+            android:orderInCategory="11"
+            android:title="Comedy" />
+        <item
+            android:id="@+id/twelve"
+            android:orderInCategory="12"
+            android:title="Entertainment" />
+        <item
+            android:id="@+id/thirteen"
+            android:orderInCategory="13"
+            android:title="News and Politics" />
+        <item
+            android:id="@+id/fourteen"
+            android:orderInCategory="14"
+            android:title="Howto and Style" />
+        <item
+            android:id="@+id/fifteen"
+            android:orderInCategory="15"
+            android:title="Education" />
+        <item
+            android:id="@+id/sixteen"
+            android:orderInCategory="16"
+            android:title="Science and Technology" />
+        <item
+            android:id="@+id/seventeen"
+            android:orderInCategory="17"
+            android:title="Nonprofits and Activism" />
+        <item
+            android:id="@+id/eighteen"
+            android:orderInCategory="18"
+            android:title="Movies" />
+        <item
+            android:id="@+id/nineteen"
+            android:orderInCategory="19"
+            android:title="Anime/Animation" />
+        <item
+            android:id="@+id/twenty"
+            android:orderInCategory="20"
+            android:title="Action/Adventure" />
+        <item
+            android:id="@+id/twentyone"
+            android:orderInCategory="21"
+            android:title="Classics" />
+        <item
+            android:id="@+id/twentytwo"
+            android:orderInCategory="22"
+            android:title="Comedy" />
+        <item
+            android:id="@+id/twentythree"
+            android:orderInCategory="23"
+            android:title="Documentary" />
+        <item
+            android:id="@+id/twentyfour"
+            android:orderInCategory="24"
+            android:title="Drama" />
+        <item
+            android:id="@+id/twentyfive"
+            android:orderInCategory="25"
+            android:title="Family" />
+        <item
+            android:id="@+id/twentysix"
+            android:orderInCategory="26"
+            android:title="Foreign" />
+        <item
+            android:id="@+id/twentyseven"
+            android:orderInCategory="27"
+            android:title="Horror" />
+        <item
+            android:id="@+id/twentyeight"
+            android:orderInCategory="28"
+            android:title="Sci-Fi/Fantasy" />
+        <item
+            android:id="@+id/twentynine"
+            android:orderInCategory="29"
+            android:title="Thriller" />
+        <item
+            android:id="@+id/thirty"
+            android:orderInCategory="30"
+            android:title="Shorts" />
+        <item
+            android:id="@+id/thirtyone"
+            android:orderInCategory="31"
+            android:title="Shows" />
+        <item
+            android:id="@+id/thirtytwo"
+            android:orderInCategory="32"
+            android:title="Trailers" />
+    </group>
+</menu>
