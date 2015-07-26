@@ -1,4 +1,4 @@
-package com.horan.eugene.youtubetesting.GenerateCategories;
+package com.horan.eugene.youtubetesting.AdaptersGettersSetters;
 
 
 public class Categories {

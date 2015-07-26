@@ -1,8 +1,12 @@
-package com.horan.eugene.youtubetesting;
+package com.horan.eugene.youtubetesting.UI;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,10 +19,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.horan.eugene.youtubetesting.GenerateCategories.Categories;
-import com.horan.eugene.youtubetesting.GenerateCategories.CategoriesAdapter;
+import com.horan.eugene.youtubetesting.AdaptersGettersSetters.Categories;
+import com.horan.eugene.youtubetesting.AdaptersGettersSetters.CategoriesAdapter;
+import com.horan.eugene.youtubetesting.R;
+import com.horan.eugene.youtubetesting.Utilities.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +41,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private DrawerLayout mNavigationDrawer;
     ImageView image_search_back;
+    Fragment searchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +63,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        View customView = getLayoutInflater().inflate(R.layout.toolbar_search, null);
+        View customView = getLayoutInflater().inflate(R.layout.view_toolbar_search, null);
         getSupportActionBar().setCustomView(customView);
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
+
+        searchFragment = new FragmentSearch();
+
         image_search_back = (ImageView) findViewById(R.id.image_search_back);
         image_search_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,23 +77,18 @@ public class MainActivity extends AppCompatActivity {
                 OpenCloseNavDrawer();
             }
         });
-        // toolbar.setTitle("YouTube Categories");
-        // toolbar.inflateMenu(R.menu.menu_main);
-        //  toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
-        //  toolbar.setNavigationIcon(R.mipmap.ic_menu_black_24dp);
-    /*    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OpenCloseNavDrawer();
-            }
-        });
-        */
+
         mNavigationView = (NavigationView) findViewById(R.id.nav);
         mNavigationView.getMenu().getItem(0).setChecked(true);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                if (getSupportFragmentManager().findFragmentByTag("SEARCH") != null) {
+
+                    Log.e("NOTNULL", "NOT_NULL");
+                    getSupportFragmentManager().popBackStack();
+                }
                 OpenCloseNavDrawer();
                 viewPager.setCurrentItem(menuItem.getOrder() - 1);
                 menuItem.setChecked(true);
@@ -92,6 +101,21 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         categoriesList = new ArrayList<>();
         new LoadCategoryData().execute("");
+
+        TextView edit_text_search = (TextView) findViewById(R.id.edit_text_search);
+        edit_text_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment, "SEARCH").addToBackStack(null).commit();
+            }
+        });
+        ImageView clearSearch = (ImageView) findViewById(R.id.clearSearch);
+        clearSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptSpeechInput();
+            }
+        });
     }
 
     private void testingPagerAdapter() {
@@ -154,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             StringBuilder result = new StringBuilder();
             try {
-                URL url = new URL("https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=us&key=AIzaSyAwsxG8fj-uWHs_-azyUcLAusn1g4TwRR0");
+                URL url = new URL(Constants.API_LINK + "videoCategories?part=snippet&regionCode=us&key=" + Constants.API_KEY);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -194,4 +218,42 @@ public class MainActivity extends AppCompatActivity {
             testingPagerAdapter();
         }
     }
+
+    /**
+     * Speech Input
+     * Voice search then implements search method based on result
+     */
+    public static int REQ_CODE_SPEECH_INPUT = 100;
+    public static String SEARCH_VOICE = "";
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Something");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), "Not Supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Set the text based on google voice then implement search
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE_SPEECH_INPUT) {
+            if (resultCode == Activity.RESULT_OK && null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                Bundle b = new Bundle();
+                b.putString("SEARCH_ITEM", result.get(0));
+                Fragment searchFragment1 = new FragmentSearch();
+                searchFragment.setArguments(b);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment1, "SEARCH").addToBackStack(null).commit();
+            }
+        }
+    }
+
 }

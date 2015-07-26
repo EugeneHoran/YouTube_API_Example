@@ -1,12 +1,13 @@
-package com.horan.eugene.youtubetesting.ListVideoData;
+package com.horan.eugene.youtubetesting.AdaptersGettersSetters;
 
 
-public class VideoCategoryInfo {
+public class VideoSearchInfo {
     private String id;
     private String url;
     private String urlLarge;
     private String title;
     private String description;
+    private String image;
 
     public String getUrlLarge() {
         return urlLarge;
@@ -23,8 +24,6 @@ public class VideoCategoryInfo {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String image;
 
     public String getTitle() {
         return title;

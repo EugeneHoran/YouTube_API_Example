@@ -1,4 +1,4 @@
-package com.horan.eugene.youtubetesting;
+package com.horan.eugene.youtubetesting.UI;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.horan.eugene.youtubetesting.ListVideoData.VideoCategoryInfo;
-import com.horan.eugene.youtubetesting.ListVideoData.VideoCategoryRecyclerAdapter;
+import com.horan.eugene.youtubetesting.Utilities.Constants;
+import com.horan.eugene.youtubetesting.AdaptersGettersSetters.VideoCategoryInfo;
+import com.horan.eugene.youtubetesting.AdaptersGettersSetters.VideoCategoryRecyclerAdapter;
+import com.horan.eugene.youtubetesting.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +50,7 @@ public class FragmentList extends Fragment {
         videoList = new ArrayList<>();
         RecyclerView recycler = (RecyclerView) v.findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        videoRecyclerAdapter = new VideoCategoryRecyclerAdapter(getActivity(), videoList, R.layout.row);
+        videoRecyclerAdapter = new VideoCategoryRecyclerAdapter(getActivity(), videoList, R.layout.list_row_video);
         recycler.setAdapter(videoRecyclerAdapter);
         new LoadVideoData().execute("");
         return v;
@@ -67,7 +69,7 @@ public class FragmentList extends Fragment {
         protected String doInBackground(String... params) {
             StringBuilder result = new StringBuilder();
             try {
-                URL url = new URL("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=us&videoCategoryId=" + categoryId + "&key=AIzaSyAwsxG8fj-uWHs_-azyUcLAusn1g4TwRR0&maxResults=20");
+                URL url = new URL(Constants.API_LINK + "videos?part=snippet&chart=mostPopular&regionCode=us&videoCategoryId=" + categoryId + "&key=" + Constants.API_KEY + "&maxResults=20");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -105,7 +107,7 @@ public class FragmentList extends Fragment {
                         info.setDescription(description);
                         videoList.add(info);
                     }
-                    Log.e("RESULT", result.toString());
+                 //   Log.e("RESULT", result.toString());
                     //  Log.e("PAGE", categoryId);
                 } catch (JSONException e) {
                     Log.e("JSON_EXCEPTION", categoryId);

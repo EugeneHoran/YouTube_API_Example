@@ -1,4 +1,4 @@
-package com.horan.eugene.youtubetesting.GenerateCategories;
+package com.horan.eugene.youtubetesting.AdaptersGettersSetters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

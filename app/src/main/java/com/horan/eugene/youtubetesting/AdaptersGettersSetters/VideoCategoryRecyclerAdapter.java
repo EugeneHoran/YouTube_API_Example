@@ -1,4 +1,4 @@
-package com.horan.eugene.youtubetesting.ListVideoData;
+package com.horan.eugene.youtubetesting.AdaptersGettersSetters;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.horan.eugene.youtubetesting.MainActivity;
+import com.horan.eugene.youtubetesting.UI.MainActivity;
 import com.horan.eugene.youtubetesting.R;
-import com.horan.eugene.youtubetesting.VideoViewActivity;
+import com.horan.eugene.youtubetesting.UI.VideoViewActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class VideoCategoryRecyclerAdapter extends RecyclerView.Adapter<VideoCate
                     intent.putExtra("VIDEO_TITLE", item.getTitle());
                     intent.putExtra("VIDEO_DESCRIPTION", item.getDescription());
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mainActivity,
-                            Pair.create((View) holder.title, "title"), Pair.create((View) holder.description, "description"));
+                            Pair.create((View) holder.title, "title"), Pair.create((View) holder.description, "description"), Pair.create((View) holder.image, "image"));
                     mainActivity.startActivity(intent, options.toBundle());
                 } else {
                     Intent video = new Intent(context, VideoViewActivity.class);

@@ -2,18 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.horan.eugene.youtubetesting.VideoViewActivity">
+    tools:context="com.horan.eugene.youtubetesting.UI.VideoViewActivity">
 
-
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtubeplayerview"
+    <RelativeLayout
+        android:id="@+id/videoContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtubeplayerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionName="image" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/youtubeplayerview">
+        android:layout_below="@+id/videoContainer">
 
         <RelativeLayout
             android:layout_width="match_parent"

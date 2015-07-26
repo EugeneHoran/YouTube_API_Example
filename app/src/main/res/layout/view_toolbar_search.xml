@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
+        android:clickable="true"
         card_view:cardBackgroundColor="#ffffff"
         card_view:cardCornerRadius="2dp">
 
@@ -28,12 +29,13 @@
                 android:padding="12dp"
                 android:src="@mipmap/ic_menu_black_24dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:hint="Search YouTube"
                 android:imeOptions="actionSearch"
@@ -41,7 +43,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="8dp"
                 android:singleLine="true"
-                android:textColorHint="#45000000"
+                android:textColorHint="#60000000"
                 android:textSize="16sp" />
 
             <ImageView

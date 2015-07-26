@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
+        android:transitionName="image"
         android:paddingLeft="16dp" />
 
     <LinearLayout
