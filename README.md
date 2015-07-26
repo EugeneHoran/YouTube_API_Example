@@ -6,7 +6,10 @@ Added some pretty cool features in the last update. Check out the video, keep an
 https://www.youtube.com/watch?v=6D43yC2LqMU
 
 Still not done with it, just started today after work; so it may be messy and I havent checked for errors which I know there are with getting the JSON data. 
-Video: 
+
+**Created another custom SearchView**  It was harder than I thought it would be to achieve this. 
+
+![screenshot_2015-07-24-19-28-15](http://cdn.makeagif.com/media/7-26-2015/ESf-Xe.gif)
 
 **Images** Sorry for the large images. I am way too lazy to format them to a smaller size.  
 
