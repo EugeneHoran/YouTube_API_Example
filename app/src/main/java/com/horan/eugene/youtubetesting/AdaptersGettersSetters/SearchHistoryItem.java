@@ -1,14 +1,14 @@
-package com.horan.eugene.youtubetesting.SearchDatabase;
+package com.horan.eugene.youtubetesting.AdaptersGettersSetters;
 
-public class SearchItem {
+public class SearchHistoryItem {
     private int _id;
     private String _name;
 
-    public SearchItem() {
+    public SearchHistoryItem() {
     }
 
     // constructor for database
-    public SearchItem(int id, String name) {
+    public SearchHistoryItem(int id, String name) {
         this._id = id;
         this._name = name;
     }

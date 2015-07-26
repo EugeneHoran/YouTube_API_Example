@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:background="#fff"
                     android:gravity="center_vertical"
-                    android:hint="Search"
+                    android:hint="Search YouTube"
                     android:imeOptions="actionSearch"
                     android:inputType="textCapWords"
                     android:paddingLeft="16dp"
@@ -74,7 +74,10 @@
             android:id="@+id/recyclerSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusableInTouchMode="true" />
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingBottom="300dp"
+            android:paddingTop="8dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -92,4 +95,12 @@
             android:layout_centerInParent="true"
             android:indeterminate="true" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/deleteHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Delete History" />
 </RelativeLayout>

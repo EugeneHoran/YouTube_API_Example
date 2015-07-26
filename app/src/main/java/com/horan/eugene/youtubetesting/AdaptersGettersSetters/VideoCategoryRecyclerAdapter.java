@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.horan.eugene.youtubetesting.UI.MainActivity;
 import com.horan.eugene.youtubetesting.R;
+import com.horan.eugene.youtubetesting.UI.FragmentSearch;
+import com.horan.eugene.youtubetesting.UI.MainActivity;
 import com.horan.eugene.youtubetesting.UI.VideoViewActivity;
 import com.squareup.picasso.Picasso;
 
@@ -40,15 +41,15 @@ public class VideoCategoryRecyclerAdapter extends RecyclerView.Adapter<VideoCate
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoCategoryInfo item = mVideoCategoryInfo.get(position);
+        final MainActivity mainActivity = (MainActivity) context;
         holder.itemView.setTag(item);
         holder.title.setText(item.getTitle());
         holder.description.setText(item.getDescription());
         Picasso.with(context).load(item.getImage()).resize(convertDpToPx(145), convertDpToPx(81)).into(holder.image);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    MainActivity mainActivity = (MainActivity) context;
                     Intent intent = new Intent(mainActivity, VideoViewActivity.class);
                     intent.putExtra("VIDEO_ID", item.getId());
                     intent.putExtra("VIDEO_TITLE", item.getTitle());

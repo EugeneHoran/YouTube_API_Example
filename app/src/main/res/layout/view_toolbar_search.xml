@@ -40,10 +40,10 @@
                 android:hint="Search YouTube"
                 android:imeOptions="actionSearch"
                 android:inputType="textCapWords"
-                android:paddingLeft="12dp"
+                android:paddingLeft="16dp"
                 android:paddingRight="8dp"
                 android:singleLine="true"
-                android:textColorHint="#60000000"
+                android:textColorHint="#75000000"
                 android:textSize="16sp" />
 
             <ImageView

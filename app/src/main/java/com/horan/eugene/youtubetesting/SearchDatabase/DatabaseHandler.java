@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.horan.eugene.youtubetesting.AdaptersGettersSetters.SearchHistoryItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,53 +54,58 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    // Adding new searchItem
-    public void addSearchItem(SearchItem searchItem) {
+    // Adding new searchHistoryItem
+    public void addSearchItem(SearchHistoryItem searchHistoryItem) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, searchItem.get_name()); // SearchItem Name
+        values.put(KEY_NAME, searchHistoryItem.get_name()); // SearchHistoryItem Name
         // Inserting Row
         db.insert(TABLE_SEARCH, null, values);
         db.close(); // Closing database connection
     }
 
     // Query the search
-    public List<SearchItem> getSearchItemFilter(String filter) {
-        List<SearchItem> dailyCalorieIntakeList = new ArrayList<>();
+    public List<SearchHistoryItem> getSearchItemFilter(String filter) {
+        List<SearchHistoryItem> dailyCalorieIntakeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_SEARCH + " WHERE " + KEY_NAME + " LIKE ?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{filter + "%"});
         if (cursor.moveToFirst()) {
             do {
-                SearchItem searchItem = new SearchItem();
-                searchItem.set_id(Integer.parseInt(cursor.getString(0)));
-                searchItem.set_name(cursor.getString(1));
-                dailyCalorieIntakeList.add(searchItem);
+                SearchHistoryItem searchHistoryItem = new SearchHistoryItem();
+                searchHistoryItem.set_id(Integer.parseInt(cursor.getString(0)));
+                searchHistoryItem.set_name(cursor.getString(1));
+                dailyCalorieIntakeList.add(searchHistoryItem);
             } while (cursor.moveToNext());
         }
         // return contact list
         return dailyCalorieIntakeList;
     }
 
-    public List<SearchItem> getAllItems() {
-        List<SearchItem> searchItemList = new ArrayList<>();
+    public void removeAll() {
+        SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
+        db.delete(this.TABLE_SEARCH, null, null);
+    }
+
+    public List<SearchHistoryItem> getAllItems() {
+        List<SearchHistoryItem> searchHistoryItemList = new ArrayList<>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_SEARCH;
+        String selectQuery = "SELECT  * FROM " + TABLE_SEARCH + " ORDER BY " + KEY_ID + " DESC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                SearchItem searchItem = new SearchItem();
-                searchItem.set_id(Integer.parseInt(cursor.getString(0)));
-                searchItem.set_name(cursor.getString(1));
-                // Adding searchItem to list
-                searchItemList.add(searchItem);
+                SearchHistoryItem searchHistoryItem = new SearchHistoryItem();
+                searchHistoryItem.set_id(Integer.parseInt(cursor.getString(0)));
+                searchHistoryItem.set_name(cursor.getString(1));
+                // Adding searchHistoryItem to list
+                searchHistoryItemList.add(searchHistoryItem);
             } while (cursor.moveToNext());
         }
 
         // return contact list
-        return searchItemList;
+        return searchHistoryItemList;
     }
 }
